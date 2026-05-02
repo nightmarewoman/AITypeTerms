@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy - AI Input Assistant</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg-body:#F2F4F8;
+    --bg-card:#FFFFFF;
+    --bg-soft:#F8F9FC;
+    --text-primary:#17191F;
+    --text-secondary:#555C70;
+    --text-tertiary:#8B91A3;
+    --accent:#3B82F6;
+    --accent-soft:#60A5FA;
+    --accent-subtle:#EFF4FF;
+    --border:#E2E6EF;
+    --border-strong:#CBD0DC;
+    --gradient-1:#3B82F6;
+    --gradient-2:#8B5CF6;
+    --shadow:0 1px 3px rgba(0,0,0,.02),0 8px 32px rgba(0,0,0,.03),0 24px 60px rgba(0,0,0,.02);
+    --radius:20px;
+    --max-width:720px;
+    --font:'Inter','SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+    --mono:'SF Mono','Fira Code','JetBrains Mono',monospace
+  }
+  html{scroll-behavior:smooth}
+  body{
+    font:400 1.0625rem/1.75 var(--font);
+    color:var(--text-primary);
+    background:var(--bg-body);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    overflow-wrap:break-word;
+    letter-spacing:.01em
+  }
+  body>svg{display:none}
+
+  /* skip link */
+  .skip-link{
+    position:absolute;
+    top:-100%;
+    left:1rem;
+    z-index:100;
+    padding:.5rem 1rem;
+    background:var(--accent);
+    color:#fff;
+    border-radius:0 0 8px 8px;
+    text-decoration:none;
+    font-size:.875rem;
+    transition:top .2s
+  }
+  .skip-link:focus{top:0}
+
+  /* progress bar */
+  #progress-bar{
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:3px;
+    z-index:90;
+    background:var(--border);
+    transform-origin:left
+  }
+  #progress-bar::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:linear-gradient(90deg,var(--gradient-1),var(--gradient-2));
+    transform:scaleX(0);
+    transform-origin:left
+  }
+
+  /* card layout */
+  main{
+    max-width:var(--max-width);
+    margin:4rem auto;
+    padding:3rem 3rem 2.5rem;
+    background:var(--bg-card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow)
+  }
+
+  /* hero */
+  header{margin-bottom:2.5rem}
+  .hero-bar{
+    width:100px;height:4px;
+    border-radius:2px;
+    background:linear-gradient(90deg,var(--gradient-1),var(--gradient-2));
+    margin-bottom:1.5rem;
+    transform-origin:left
+  }
+  h1{
+    font-size:clamp(2rem,5vw,3rem);
+    font-weight:700;
+    line-height:1.15;
+    letter-spacing:-.02em;
+    color:var(--text-primary);
+    margin-bottom:.5rem
+  }
+  .effective-date{
+    font-size:.9375rem;
+    color:var(--text-tertiary)
+  }
+
+  /* TOC */
+  .toc{
+    background:var(--bg-soft);
+    border-radius:12px;
+    padding:1.5rem 2rem;
+    margin-bottom:2.5rem;
+    border:1px solid var(--border)
+  }
+  .toc-title{
+    font-size:.75rem;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--text-tertiary);
+    margin-bottom:.75rem
+  }
+  .toc ol{
+    list-style:none;
+    counter-reset:item;
+    display:grid;
+    gap:.25rem
+  }
+  .toc li{
+    counter-increment:item;
+    font-size:.9375rem
+  }
+  .toc li::before{
+    content:counter(item)'.';
+    color:var(--text-tertiary);
+    font-variant-numeric:tabular-nums;
+    width:1.5rem;
+    display:inline-block
+  }
+  .toc a{
+    color:var(--text-secondary);
+    text-decoration:none;
+    background-image:linear-gradient(var(--accent),var(--accent));
+    background-size:0 1px;
+    background-repeat:no-repeat;
+    background-position:left bottom;
+    transition:background-size .3s,color .3s;
+    padding-bottom:1px
+  }
+  .toc a:hover,.toc a:focus-visible{
+    color:var(--accent);
+    background-size:100% 1px
+  }
+  .toc a.active{
+    color:var(--accent);
+    font-weight:600
+  }
+
+  /* sections */
+  section{
+    padding:1.5rem 0;
+    border-radius:8px;
+    transition:opacity .5s ease-out,transform .5s ease-out;
+    opacity:0;
+    transform:translateY(12px);
+    margin:0 -1rem;
+    padding-left:1rem;
+    padding-right:1rem
+  }
+  section.visible{opacity:1;transform:translateY(0)}
+  section:nth-child(even){background:var(--bg-soft)}
+  section:nth-child(odd){background:transparent}
+  h2{
+    font-size:clamp(1.25rem,3vw,1.75rem);
+    font-weight:600;
+    line-height:1.3;
+    letter-spacing:-.01em;
+    color:var(--text-primary);
+    margin-bottom:1rem;
+    padding-left:.75rem;
+    border-left:3px solid transparent;
+    transition:border-color .4s
+  }
+  h2.in-view{border-color:var(--accent)}
+  p{
+    margin-bottom:1.25rem;
+    max-width:65ch;
+    color:var(--text-secondary);
+    line-height:1.75
+  }
+  p:last-child{margin-bottom:0}
+  strong{color:var(--text-primary);font-weight:600}
+  em{font-style:italic}
+  a:not(.toc a):not(.skip-link){
+    color:var(--accent);
+    text-decoration:none;
+    background-image:linear-gradient(var(--accent),var(--accent));
+    background-size:0 1px;
+    background-repeat:no-repeat;
+    background-position:left bottom;
+    transition:background-size .3s;
+    padding-bottom:1px
+  }
+  a:not(.toc a):not(.skip-link):hover,
+  a:not(.toc a):not(.skip-link):focus-visible{
+    background-size:100% 1px
+  }
+
+  /* list */
+  ul{
+    list-style:none;
+    margin:1rem 0 1.25rem;
+    padding:0
+  }
+  ul li{
+    position:relative;
+    padding-left:1.75rem;
+    margin-bottom:.5rem;
+    color:var(--text-secondary)
+  }
+  ul li::before{
+    content:'';
+    position:absolute;
+    left:0;
+    top:.65em;
+    width:6px;height:6px;
+    border-radius:50%;
+    background:var(--accent);
+    opacity:.7
+  }
+
+  /* hr */
+  hr{
+    border:none;
+    height:1px;
+    background:linear-gradient(90deg,var(--gradient-1),var(--gradient-2),transparent);
+    margin:3rem 0;
+    opacity:.3
+  }
+
+  /* contact */
+  .contact-email{
+    display:inline-flex;
+    align-items:center;
+    gap:.5rem;
+    margin-top:.5rem;
+    padding:.75rem 1.25rem;
+    background:var(--accent-subtle);
+    border-radius:10px;
+    font-size:1rem;
+    transition:background .3s
+  }
+  .contact-email:hover{background:#DCE6FF}
+  .contact-email svg{flex-shrink:0}
+
+  /* footer */
+  footer{
+    margin-top:2.5rem;
+    padding-top:1.5rem;
+    text-align:center;
+    border-top:1px solid var(--border);
+    font-size:.8125rem;
+    color:var(--text-tertiary)
+  }
+
+  /* scroll to top */
+  #scroll-top{
+    position:fixed;
+    bottom:2rem;right:2rem;
+    z-index:80;
+    width:44px;height:44px;
+    border-radius:50%;
+    border:1px solid var(--border);
+    background:var(--bg-card);
+    color:var(--accent);
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 2px 12px rgba(0,0,0,.06);
+    opacity:0;
+    pointer-events:none;
+    transform:translateY(12px);
+    transition:opacity .3s,transform .3s,box-shadow .3s,border-color .3s
+  }
+  #scroll-top.visible{
+    opacity:1;
+    pointer-events:auto;
+    transform:translateY(0)
+  }
+  #scroll-top:hover{
+    border-color:var(--accent);
+    box-shadow:0 4px 20px rgba(59,130,246,.15);
+    transform:translateY(-2px)
+  }
+  #scroll-top:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:2px
+  }
+
+  /* focus visible */
+  :focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:2px
+  }
+
+  /* reduced motion */
+  @media (prefers-reduced-motion:no-preference){
+    .hero-bar{animation:heroBarIn .8s ease-out .2s both}
+    @keyframes heroBarIn{
+      from{transform:scaleX(0)}
+      to{transform:scaleX(1)}
+    }
+    main{animation:cardIn .6s ease-out both}
+    @keyframes cardIn{
+      from{opacity:0;transform:translateY(8px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+  }
+  @media (prefers-reduced-motion:reduce){
+    section{opacity:1;transform:none}
+    html{scroll-behavior:auto}
+  }
+
+  /* print */
+  @media print{
+    body{background:#fff}
+    main{box-shadow:none;border-radius:0;margin:0;padding:1rem}
+    #progress-bar,#scroll-top,.skip-link{display:none!important}
+    section{opacity:1!important;transform:none!important}
+    .toc{display:none}
+    h2{border-left-color:var(--accent)!important}
+  }
+
+  /* responsive */
+  @media (max-width:900px){
+    main{padding:2.5rem 2rem}
+  }
+  @media (max-width:640px){
+    body{background:var(--bg-card)}
+    main{
+      margin:0;
+      padding:1.5rem 1.25rem;
+      border-radius:0;
+      box-shadow:none
+    }
+    .toc{padding:1.25rem 1.25rem}
+    section{margin:0 -.5rem;padding-left:.5rem;padding-right:.5rem}
+    .hero-bar{width:80px}
+  }
+  @media (max-width:480px){
+    main{padding:1.25rem 1rem}
+    .toc li{font-size:.875rem}
+  }
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<div id="progress-bar" role="progressbar" aria-label="Reading progress"></div>
+
+<main id="main-content">
+  <header>
+    <div class="hero-bar" aria-hidden="true"></div>
+    <h1>Privacy Policy</h1>
+    <p class="effective-date"><strong>Effective Date:</strong> May 3, 2026</p>
+  </header>
+
+  <nav class="toc" aria-label="Table of Contents">
+    <p class="toc-title">Contents</p>
+    <ol>
+      <li><a href="#collect">Information We Collect</a></li>
+      <li><a href="#use">How We Use Information</a></li>
+      <li><a href="#sharing">Data Sharing and Disclosure</a></li>
+      <li><a href="#security">Data Security</a></li>
+      <li><a href="#retention">Data Retention</a></li>
+      <li><a href="#rights">Your Rights</a></li>
+      <li><a href="#updates">Updates to This Policy</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ol>
+  </nav>
+
+  <section id="collect" aria-labelledby="h-collect">
+    <h2 id="h-collect">Information We Collect</h2>
+    <p>When you actively trigger the AI generation feature, the Extension collects the text you enter in the input field, including any &ldquo;@&rdquo; commands you may include. We collect only the minimum amount of data necessary to provide the core service.</p>
+    <p>We <strong>do not</strong> collect any personally identifiable information, such as your name, email address, physical location, or device identifiers. The Extension uses an anonymous, randomly generated identifier for service calls. This identifier cannot be traced back to your real identity.</p>
+  </section>
+
+  <section id="use" aria-labelledby="h-use">
+    <h2 id="h-use">How We Use Information</h2>
+    <p>Your input text is securely transmitted to our backend server (AWS Lambda) via an encrypted channel (HTTPS) solely for the purpose of generating AI replies. The output is then returned to your browser&rsquo;s input field over the same encrypted channel.</p>
+    <p>We <strong>do not</strong> use your input text for any other purposes, including but not limited to:</p>
+    <ul>
+      <li>Training AI models</li>
+      <li>User behavior analytics or profiling</li>
+      <li>Advertising</li>
+    </ul>
+  </section>
+
+  <section id="sharing" aria-labelledby="h-sharing">
+    <h2 id="h-sharing">Data Sharing and Disclosure</h2>
+    <p>We do not sell, trade, or otherwise share your input text with any third parties. The only communication is with the backend service hosted on AWS Lambda, and that service is used exclusively for AI generation.</p>
+  </section>
+
+  <section id="security" aria-labelledby="h-security">
+    <h2 id="h-security">Data Security</h2>
+    <p>We employ industry-standard security measures to protect your data. All communications with the server are encrypted using HTTPS to prevent interception or tampering during transmission. Our backend processing script <strong>does not</strong> record or store your input text in any persistent storage after generation is complete.</p>
+  </section>
+
+  <section id="retention" aria-labelledby="h-retention">
+    <h2 id="h-retention">Data Retention</h2>
+    <p>Your input text is processed <strong>only temporarily in memory and is discarded immediately after the response is generated</strong>. We do not retain any history of your inputs or generated content in any form. This means that once processing is finished, we cannot recover or provide any of your past text data.</p>
+  </section>
+
+  <section id="rights" aria-labelledby="h-rights">
+    <h2 id="h-rights">Your Rights</h2>
+    <p>Because we do not retain any personal data or input content, you do not need to exercise rights to access, correct, or delete data. However, if you have any concerns or questions, you may contact us at any time using the information below, and we will do our best to address them.</p>
+  </section>
+
+  <section id="updates" aria-labelledby="h-updates">
+    <h2 id="h-updates">Updates to This Policy</h2>
+    <p>We may update this privacy policy from time to time. Any changes will be posted on this page with an updated effective date. We encourage you to review this policy periodically for the latest information.</p>
+  </section>
+
+  <section id="contact" aria-labelledby="h-contact">
+    <h2 id="h-contact">Contact Us</h2>
+    <p>If you have any questions or suggestions about this privacy policy, please contact us at:</p>
+    <a href="mailto:lsimin232@gmail.com" class="contact-email" aria-label="Email us at lsimin232@gmail.com">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      lsimin232@gmail.com
+    </a>
+  </section>
+
+  <hr>
+
+  <footer>
+    <p>AI Input Assistant &bull; Privacy Policy</p>
+  </footer>
+</main>
+
+<button id="scroll-top" aria-label="Scroll to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+
+<script>
+(function(){
+  'use strict';
+
+  // Progress bar
+  var progressBar = document.getElementById('progress-bar');
+  var progressStyle = document.createElement('style');
+  document.head.appendChild(progressStyle);
+  var ticking = false;
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      window.requestAnimationFrame(function() {
+        var scrollTop = window.scrollY;
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        var progress = docHeight > 0 ? scrollTop / docHeight : 0;
+        progressStyle.textContent = '#progress-bar::after{transform:scaleX(' + progress + ')}';
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // Section reveal
+  var sections = document.querySelectorAll('section');
+  var sectionObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        sectionObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  sections.forEach(function(s, i) {
+    s.style.transitionDelay = (i * 80) + 'ms';
+    sectionObserver.observe(s);
+  });
+
+  // TOC active highlight + h2 border
+  var tocLinks = document.querySelectorAll('.toc a');
+  var headings = document.querySelectorAll('h2');
+  var tocObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      var id = entry.target.id;
+      if (id) {
+        // highlight corresponding TOC link
+        tocLinks.forEach(function(link) {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id.replace('h-', ''));
+        });
+        // highlight h2 border
+        if (entry.isIntersecting) {
+          headings.forEach(function(h) { h.classList.remove('in-view'); });
+          entry.target.classList.add('in-view');
+        }
+      }
+    });
+  }, { threshold: 0.3 });
+  headings.forEach(function(h) { tocObserver.observe(h); });
+
+  // Scroll to top
+  var scrollBtn = document.getElementById('scroll-top');
+  var toggleBtn = function() {
+    scrollBtn.classList.toggle('visible', window.scrollY > 300);
+  };
+  window.addEventListener('scroll', toggleBtn, { passive: true });
+  scrollBtn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // TOC click smooth scroll with offset
+  tocLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        var top = target.getBoundingClientRect().top + window.scrollY - 20;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
